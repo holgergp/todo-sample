@@ -1,7 +1,6 @@
-import TodoItem from "../TodoItem/TodoItem";
-
-import styles from "./Todo.module.scss";
 import { useState } from "react";
+import TodoItems from "../TodoItems/TodoItems";
+import AddTodo from "../AddTodo/AddTodo";
 
 export interface TodoType {
   id: string;
@@ -22,12 +21,20 @@ const Todo = (): JSX.Element => {
     });
     setItems(toggledItems);
   };
+
+  const addTodo = (name: string) => {
+    const updatedItems = [
+      ...items,
+      { name, checked: false, id: Math.random() + "" },
+    ];
+    setItems(updatedItems);
+  };
   return (
-    <div className={styles.todoGrid}>
-      {items.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} toggleCheckStatus={toggleCheckStatusOfAnItem}></TodoItem>
-      ))}
-    </div>
+    <>
+      <h1>Todo App</h1>
+      <TodoItems items={items} toggleCheckStatus={toggleCheckStatusOfAnItem} />
+      <AddTodo addTodo={addTodo} />
+    </>
   );
 };
 
